@@ -1,3 +1,3 @@
-import math
+#veremos que tal esto
 
-print(math.cos(23))
+variable = "variable" #@param {type: "string"}
