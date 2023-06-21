@@ -1,12 +1,4 @@
-#@title Graficador -> Diagrama de veen
-#@markdown #__Graficador -> Diagrama de veen__
-#@markdown Este proyecto consta de introducir unos valores que servirán para que el programa arme un diagrama de veen
-#@markdown ###No usar markdown en este codigo, para eso sera otra ventana
-
-
-"""
-nose ni que hacer
-"""
+#Created by: Jesus Gomez
 def graficador(*datos):
     prueba = "Aqu\xED escribo lo que quiero" #@param {type: "string"}
     print(prueba)
