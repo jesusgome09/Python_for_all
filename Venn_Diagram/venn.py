@@ -1,5 +1,5 @@
 #veremos que tal esto
 
-variable = "variable" #@param {type: "string"}
+variable = "variable" 
 
-#@markdown #Hola como estas
+#github no lee los escritos en markdown dentro del codigo
