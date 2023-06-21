@@ -1,7 +1,7 @@
 #Created by: Jesus Gomez
+
 def graficador(*datos):
-    prueba = "Aqu\xED escribo lo que quiero" #@param {type: "string"}
-    print(prueba)
+        print("prueba")
 
 def conjuntos(*valores: int):
 
@@ -37,10 +37,6 @@ def conjuntos(*valores: int):
         print("Algo salio mal!")
     else:
         print("Todo bien!")
-
-
-
-
 
 
 def entrada():  # Aqui pedimos la informacion necesaria para empezar y llamar a la otra funcion
