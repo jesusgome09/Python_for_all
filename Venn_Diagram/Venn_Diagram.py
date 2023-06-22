@@ -1,7 +1,9 @@
-#Created by: Jesus Gomez
+# Created by: Jesus Gomez
+
 
 def graficador(*datos):
-        print("prueba")
+    print("hola")
+
 
 def conjuntos(*valores: int):
 
@@ -63,7 +65,5 @@ def entrada():  # Aqui pedimos la informacion necesaria para empezar y llamar a 
     conjuntos(total, A, B, C, AB, BC, AC, ABC)
 
 
-
-#entrada()
-conjuntos(80,10,20,50,4,10,7,4)
-graficador(1)
+# entrada()
+conjuntos(80, 10, 20, 50, 4, 10, 7, 4)
