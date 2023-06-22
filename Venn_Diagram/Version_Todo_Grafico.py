@@ -1,5 +1,4 @@
 from tkinter import Tk, Label, Entry, Button
-from tkinter import ttk
 
 def obtener_valores():
     total = int(total_entry.get())
@@ -16,13 +15,6 @@ def obtener_valores():
 # Crear la ventana principal
 ventana = Tk()
 ventana.title("Creador de Conjuntos")
-
-# Ajustar el tamaño de la ventana
-ventana.geometry("400x300")
-
-# Aplicar estilo moderno a los widgets
-style = ttk.Style()
-style.theme_use("clam")
 
 # Etiquetas
 Label(ventana, text="Total:").grid(row=0, column=0)
@@ -54,9 +46,7 @@ ac_entry.grid(row=6, column=1)
 abc_entry.grid(row=7, column=1)
 
 # Botón
-button_style = ttk.Style()
-button_style.configure("TButton", font=("Helvetica", 12), foreground="white", background="#4CAF50")
-Button(ventana, text="Generar gráfico", command=obtener_valores, style="TButton").grid(row=8, columnspan=2)
+Button(ventana, text="Generar gráfico", command=obtener_valores).grid(row=8, columnspan=2)
 
 # Iniciar el bucle principal de la ventana
 ventana.mainloop()
