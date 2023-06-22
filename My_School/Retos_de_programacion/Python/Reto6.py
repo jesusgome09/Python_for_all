@@ -8,6 +8,6 @@ def inversor(texto):
     textoAlRevz = ""
     for i in texto:
         textoAlRevz = i + textoAlRevz 
-    print(textoAlRevz)
+    print(textoAlRevz.lower())
 
-inversor("el rato es mas peresozo")
+inversor("oveuh noc zorra")
