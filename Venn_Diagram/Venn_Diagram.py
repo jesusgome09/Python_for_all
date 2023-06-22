@@ -13,10 +13,13 @@ def graficador(*datos):
     bc = datos[5]
     ac = datos[6]
     abc = datos[7]
+    universal = datos[0]
 
     # Graficar el diagrama de Venn
     venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"), normalize_to=1.0)
+    plt.text(0.8, 0.1, f"Universal: {universal}", fontsize=10, transform=plt.gca().transAxes)  # Agrega el texto "Universal" en la posición deseada
     plt.show()
+    
 
 # Función para calcular los valores de los conjuntos
 def conjuntos(*valores: int):
