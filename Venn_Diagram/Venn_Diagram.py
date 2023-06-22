@@ -1,8 +1,22 @@
 # Created by: Jesus Gomez
 
+from matplotlib import pyplot as plt
+from matplotlib_venn import venn3
+
+# graficador(total, A, B, C, AB, BC, AC, ABC)
+
 
 def graficador(*datos):
-    print("hola")
+    a = datos[1]
+    b = datos[2]
+    c = datos[3]
+    ab = datos[4]
+    bc = datos[5]
+    ac = datos[6]
+    abc = datos[7]
+
+    venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"))
+    plt.show()
 
 
 def conjuntos(*valores: int):
@@ -39,6 +53,8 @@ def conjuntos(*valores: int):
         print("Algo salio mal!")
     else:
         print("Todo bien!")
+
+    graficador(total, A, B, C, AB, BC, AC, ABC)
 
 
 def entrada():  # Aqui pedimos la informacion necesaria para empezar y llamar a la otra funcion
