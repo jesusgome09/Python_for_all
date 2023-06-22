@@ -15,7 +15,8 @@ def graficador(*datos):
     ac = datos[6]
     abc = datos[7]
 
-    venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"))
+    venn3((a, b, ab, c, ac, bc, abc), set_labels=(
+        "A", "B", "C"), normalize_to=1.0)
     plt.show()
 
 
