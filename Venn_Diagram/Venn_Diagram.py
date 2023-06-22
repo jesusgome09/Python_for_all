@@ -15,9 +15,15 @@ def graficador(*datos):
     abc = datos[7]
     universal = datos[0]
 
+    # Calcula el tamaño máximo entre los conjuntos A, B y C
+    max_size = max(a, b, c)
+
+    # Calcula el valor de normalización para que todos los círculos tengan el mismo tamaño
+    normalize_value = max_size / max(max_size, ab, bc, ac, abc, universal)
+
     # Graficar el diagrama de Venn
-    venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"), normalize_to=1.0)
-    plt.text(0.8, 0.1, f"Universal: {universal}", fontsize=10, transform=plt.gca().transAxes)  # Agrega el texto "Universal" en la posición deseada
+    venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"), normalize_to=normalize_value)
+    plt.text(0.8, 0.1, f"U: {universal}", fontsize=10, transform=plt.gca().transAxes)  # Agrega el texto "Universal" en la posición deseada
     plt.show()
     
 
