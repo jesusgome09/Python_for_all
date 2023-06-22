@@ -13,7 +13,7 @@ def graficador(*datos):
     bc = datos[5]
     ac = datos[6]
     abc = datos[7]
-    universal = datos[0] - datos[1:6]
+    universal = datos[0] - (a+b+c+ab+bc+ac+abc)
 
     # Calcula el tamaño máximo entre los conjuntos A, B y C
     max_size = max(a, b, c)
