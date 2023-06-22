@@ -8,3 +8,4 @@ Trabajos y proyectos realizados con python
 # Mientras estudio
 Tambien tengo una carpeta en donde coloco mis archivos creados a media veo videos y tutoriales
 si gustan pueden verlo, sabran como aprendi :)
+- [Carpeta de estudio](https://github.com/jesusgome09/Python_for_all/tree/main/My_School)
