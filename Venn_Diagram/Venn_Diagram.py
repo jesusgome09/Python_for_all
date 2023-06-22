@@ -3,10 +3,9 @@
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn3
 
-# graficador(total, A, B, C, AB, BC, AC, ABC)
-
-
+# Función para graficar el diagrama de Venn
 def graficador(*datos):
+    # Desempaquetar los datos
     a = datos[1]
     b = datos[2]
     c = datos[3]
@@ -15,13 +14,13 @@ def graficador(*datos):
     ac = datos[6]
     abc = datos[7]
 
-    venn3((a, b, ab, c, ac, bc, abc), set_labels=(
-        "A", "B", "C"), normalize_to=1.0)
+    # Graficar el diagrama de Venn
+    venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"), normalize_to=1.0)
     plt.show()
 
-
+# Función para calcular los valores de los conjuntos
 def conjuntos(*valores: int):
-
+    # Desempaquetar los valores
     ABC = valores[7]
     if valores[4] > ABC:
         AB = valores[4] - ABC
@@ -50,20 +49,20 @@ def conjuntos(*valores: int):
     total = valores[0]
     universal = total - (A+B+C+AB+BC+AC+ABC)
 
+    # Verificar si los cálculos son correctos
     if (A+B+C+AB+BC+AC+ABC)+universal != total:
-        print("Algo salio mal!")
+        print("Algo salió mal!")
     else:
         print("Todo bien!")
+        graficador(total, A, B, C, AB, BC, AC, ABC)
 
-    graficador(total, A, B, C, AB, BC, AC, ABC)
-
-
-def entrada():  # Aqui pedimos la informacion necesaria para empezar y llamar a la otra funcion
+# Función para solicitar información al usuario
+def entrada():
     print("-"*50)
     print("Bienvenido a nuestro creador de conjuntos")
     print("""
     Los conjuntos se nombran desde (A, B y C)
-    te pediremos unos datos, agradesemos que los coloques bien.
+    te pediremos unos datos, agradecemos que los coloques correctamente.
     """)
     print("-"*50)
 
@@ -80,7 +79,8 @@ def entrada():  # Aqui pedimos la informacion necesaria para empezar y llamar a 
     print("-"*50)
 
     conjuntos(total, A, B, C, AB, BC, AC, ABC)
+#Empieza el juego
+#entrada()
 
-
-# entrada()
+# Llamar a la función conjuntos con valores específicos
 conjuntos(80, 10, 20, 50, 4, 10, 7, 4)

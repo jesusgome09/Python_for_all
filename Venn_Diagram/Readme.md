@@ -41,6 +41,19 @@ ABC = 4
 conjuntos(total, A, B, C, AB, BC, AC, ABC)
 ```
 
+Pero ay que tener en cuenta algo, hay una funcion llamada ```entrada()``` cuya funcion pide dato por dato desde la consola, valga la redundancia. Esta funcion no fue tomada al momento de subir el archivo para una rapida ejecucion, pero si gusta puede eliminar el ```#```  de donde aparece esto:
+
+```python
+    conjuntos(total, A, B, C, AB, BC, AC, ABC)
+#Empieza el juego
+#entrada()
+
+# Llamar a la función conjuntos con valores específicos
+conjuntos(80, 10, 20, 50, 4, 10, 7, 4)
+```
+
+Al final del codigo, a continuacion __Ejemplo de uso__ desde el metodo rapido.
+
 4. El programa generará el gráfico de diagrama de Venn basado en los valores proporcionados y lo mostrará.
 
 ## Ejemplo de uso
@@ -59,3 +72,5 @@ conjuntos(80, 10, 20, 50, 4, 10, 7, 4)
 - Si los cálculos son exitosos y no hay discrepancias, se mostrará el mensaje "Todo bien!" y se generará el gráfico de Venn.
 
 ¡Disfruta usando el programa y creando diagramas de Venn interactivos!
+
+### Pronto lo mejorare, espero sigamos aprendiendo juntos
