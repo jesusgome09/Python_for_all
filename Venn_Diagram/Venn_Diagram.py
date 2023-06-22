@@ -22,7 +22,7 @@ def graficador(*datos):
     normalize_value = max_size / max(max_size, ab, bc, ac, abc, universal)
 
     # Graficar el diagrama de Venn
-    venn3((a, b, ab, c, ac, bc, abc), set_labels=("A", "B", "C"), normalize_to=normalize_value)
+    venn3((a, b, ab, c, ac, bc, abc), normalize_to=normalize_value, set_labels=("A", "B", "C"))
     plt.text(0.8, 0.1, f"U: {universal}", fontsize=10, transform=plt.gca().transAxes)  # Agrega el texto "Universal" en la posición deseada
     plt.show()
     
