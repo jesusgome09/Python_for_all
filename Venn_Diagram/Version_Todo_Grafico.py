@@ -1,3 +1,7 @@
+"""
+Esta version esta en proseso, si gustan y quieren ayudar creo que ya saben como contactarme :)
+"""
+
 from tkinter import Tk, Label, Entry, Button
 
 def obtener_valores():
