@@ -52,7 +52,7 @@ def conjuntos(*valores: int):
     else:
         B = valores[2]
     if valores[3] > (AB+ABC+BC):
-        C = valores[3] - (AB+ABC+BC)
+        C = valores[3] - (AC+ABC+BC)
     else:
         C = valores[3]
     total = valores[0]
