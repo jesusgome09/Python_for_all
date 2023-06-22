@@ -70,7 +70,7 @@ conjuntos(80, 10, 20, 50, 4, 10, 7, 4)
 - Los valores de intersección (AB, BC, AC, ABC) deben ser menores o iguales a los valores de los conjuntos individuales (A, B, C).
 - Si hay discrepancias en los valores proporcionados, se mostrará el mensaje "Algo salió mal!".
 - Si los cálculos son exitosos y no hay discrepancias, se mostrará el mensaje "Todo bien!" y se generará el gráfico de Venn.
-- El programa solo tinen un problema y es que el circulo "C" sale mas grande en algunos       casos, espero solucionarlo pronto
+- El programa solo tinen un problema y es que el circulo "C" sale mas grande en algunos       casos, espero solucionarlo pronto.
 
 ¡Disfruta usando el programa y creando diagramas de Venn interactivos!
 
