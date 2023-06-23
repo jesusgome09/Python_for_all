@@ -1,0 +1,4 @@
+mi nombre es jesus
+Mi apellido es gomez
+17 años
+Y mi lenguaje por ahora es python
