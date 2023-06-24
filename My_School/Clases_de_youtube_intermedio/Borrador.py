@@ -1,26 +1,14 @@
+import csv
 
-def escribir(texto):
-    with open("My_School/Clases_de_youtube_intermedio/My_file.txt", "a") as file:
-        file.write("\n"+texto)
-
-def leer():
-    with open("My_School/Clases_de_youtube_intermedio/My_file.txt", "r") as file:
-        print(file.read())
+my_file = open("My_School/Clases_de_youtube_intermedio/My_file.csv", "w")
+my_file.write("Hello World")
 
 
-def ingreso_datos(nombre, edad:int):
-    escribir(f"Nombre: {nombre}; Edad: {edad}")
+#import xlrd  # pip install xlrd
 
-#ingreso_datos("pedro", 43)
-#leer()
 
-def buscar(nombre):
-    with open("My_School/Clases_de_youtube_intermedio/My_file.txt", "r") as file:
-        i = 0
-        e = 0
-        for line in file:
-            if nombre in line:
-                print(f"Linea: {i}; {line}")
-                 
 
-buscar("juan")
+
+
+import xml
+
