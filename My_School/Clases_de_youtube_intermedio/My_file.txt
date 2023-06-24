@@ -1,4 +1,3 @@
-mi nombre es jesus
-Mi apellido es gomez
-17 años
-Y mi lenguaje por ahora es python
+Nombre: jesus; Edad: 17
+Nombre: juan; Edad: 16
+Nombre: pedro; Edad: 43
