@@ -2,70 +2,75 @@ import tkinter as tk
 import sqlite_conect
 import Inicio
 from tkinter import messagebox
-
-
+from tkinter import PhotoImage
 
 def abrir():
-
     def registrar():
         name = caja_nombre.get()
         surname = caja_apellido.get()
         correo = caja_email.get()
 
         if sqlite_conect.agregar(name, surname, correo):
-            messagebox.showinfo("Mensaje","Se a registrado con exito!")
+            messagebox.showinfo("Mensaje", "Se ha registrado con éxito!")
             window.destroy()
             Inicio.abrir()
         else:
-            messagebox.showerror("Error","A ocurrido un error")
+            messagebox.showerror("Error", "Ha ocurrido un error")
+
     def cancelar():
         window.destroy()
         Inicio.abrir()
+
     def mover_a_apellido(event):
         caja_apellido.focus_set()
+
     def mover_a_email(event):
         caja_email.focus_set()
+
     def finalizar(event):
         registrar()
 
     window = tk.Tk()
     window.title("Gestor Administrativo")
-    window.configure(bg='#2271b3', width=300, height=240)
+    window.configure(bg='#2271b3')
     window.geometry("300x240+500+220")
-    window.iconbitmap('icono.ico')
+    # window.iconbitmap('icono.ico')
+    icon = PhotoImage(file="icono.png")
+    window.iconphoto(True, icon)
 
-    titulo = tk.Label(window, text="Registro de Usuarios",background='#2271b3', font=('Inter',16,'normal'), fg='white')
-    titulo.place(x=56, y=13, width=200, height=16)
+    titulo = tk.Label(window, text="Registro de Usuarios", background='#2271b3', font=('Inter', 16, 'normal'),
+                      fg='white')
+    titulo.pack(pady=13)
 
-    label_nombre = tk.Label(window, text="Nombre:", background='#2271b3', font=('Inter',16), fg='white')
-    label_nombre.place(x=24, y=59)
-
-    caja_nombre = tk.Entry(window)
-    caja_nombre.place(x=115, y=65, width=157, height=19)
+    frame_nombre = tk.Frame(window, background='#2271b3')
+    frame_nombre.pack(pady=8)
+    label_nombre = tk.Label(frame_nombre, text="Nombre:", background='#2271b3', font=('Inter', 16), fg='white')
+    label_nombre.pack(side='left')
+    caja_nombre = tk.Entry(frame_nombre)
+    caja_nombre.pack(side='left', padx=8)
     caja_nombre.bind('<Return>', mover_a_apellido)
 
-    label_apellido = tk.Label(window, text="Apellido:", background='#2271b3', font=('Inter',16), fg='white')
-    label_apellido.place(x=24, y=96)
-
-    caja_apellido = tk.Entry(window)
-    caja_apellido.place(x=115, y=102, width=157, height=19)
+    frame_apellido = tk.Frame(window, background='#2271b3')
+    frame_apellido.pack(pady=8)
+    label_apellido = tk.Label(frame_apellido, text="Apellido:", background='#2271b3', font=('Inter', 16), fg='white')
+    label_apellido.pack(side='left')
+    caja_apellido = tk.Entry(frame_apellido)
+    caja_apellido.pack(side='left', padx=8)
     caja_apellido.bind('<Return>', mover_a_email)
 
-    label_email = tk.Label(window, text="Email:", background='#2271b3', font=('Inter',16), fg='white')
-    label_email.place(x=24, y=133)
-
-    caja_email = tk.Entry(window)
-    caja_email.place(x=90, y=139, width=182, height=19)
+    frame_email = tk.Frame(window, background='#2271b3')
+    frame_email.pack(pady=8)
+    label_email = tk.Label(frame_email, text="Email:", background='#2271b3', font=('Inter', 16), fg='white')
+    label_email.pack(side='left')
+    caja_email = tk.Entry(frame_email)
+    caja_email.pack(side='left', padx=8)
     caja_email.bind('<Return>', finalizar)
 
-    boton_registrar = tk.Button(window, text="Registrar", width=12, height=2)
-    boton_registrar.place(x=171, y=185)
-    boton_registrar.config(command=registrar)
-
-    boton_cancelar = tk.Button(window, text="Cancelar", width=10, height=2)
-    boton_cancelar.place(x=32, y=185)
-    boton_cancelar.config(command=cancelar)
-
-
+    frame_botones = tk.Frame(window, background='#2271b3')
+    frame_botones.pack(pady=8)
+    boton_cancelar = tk.Button(frame_botones, text="Cancelar", width=10, height=2, command=cancelar)
+    boton_cancelar.pack(side='left', padx=8)
+    boton_registrar = tk.Button(frame_botones, text="Registrar", width=12, height=2, command=registrar)
+    boton_registrar.pack(side='left', padx=8)
 
     window.mainloop()
