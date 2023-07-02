@@ -1,0 +1,4 @@
+import Inicio
+
+
+Inicio.abrir()
