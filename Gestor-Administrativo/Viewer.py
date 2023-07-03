@@ -26,8 +26,18 @@ def abrir(nombre, apellido):
     window.configure(bg='#2271b3')
     window.geometry("300x240+500+220")
     # window.iconbitmap('icono.ico')
-    icon = PhotoImage(file="icono.png")
-    window.iconphoto(True, icon)
+    try:
+        icon = PhotoImage(file="icono.png")
+        window.iconphoto(True, icon)
+    except tk.TclError:
+        print("No se encuentra el icono")
+        print("Dirigete a la ubicacion del codigo fuente")
+        print("Intentare corregirlo...")
+        try:
+            icon = PhotoImage(file="Gestor-Administrativo/icono.png")
+            window.iconphoto(True, icon)
+        except tk.TclError:
+            print("No pude, intentalo tu")
 
     titulo = tk.Label(window, text="Gestor de Usuarios", background='#2271b3', font=('Inter', 16, 'normal'), fg='white')
     titulo.pack(pady=13)
