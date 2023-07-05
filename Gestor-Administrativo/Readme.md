@@ -1,4 +1,5 @@
 # Gestor Administrativo
+## Version 1.0
 ### Created by: Jesus Gomez
 Para empezar a usar el programa ejecuta la el archivo ```Main.py```
 
