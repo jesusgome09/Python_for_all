@@ -1,27 +1,41 @@
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+import nltk
+from nltk.chat.util import Chat, reflections
 
-# Cargar los datos del conjunto de datos Iris
-data = pd.read_csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv')
+# Definir patrones de entrada y respuestas correspondientes
+pares = [
+    [
+        r"mi nombre es (.*)",
+        [
+            "Hola %1, ¿cómo estás?",
+        ],
+    ],
+    [
+        r"¿cuál es tu nombre\??",
+        [
+            "Mi nombre es Jarvis.",
+        ],
+    ],
+    [
+        r"¿cómo estás\??",
+        [
+            "Estoy bien, gracias.",
+            "¡Muy bien! ¿Y tú?",
+        ],
+    ],
+    [
+        r"quit",
+        [
+            "Hasta luego. Fue un placer ayudarte.",
+        ],
+    ],
+]
 
-# Dividir los datos en características y etiquetas
-X = data.drop('species', axis=1)
-y = data['species']
 
-# Dividir los datos en un conjunto de entrenamiento y un conjunto de prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+def chatbot():
+    print("Hola, soy Jarvis. ¿En qué puedo ayudarte hoy?")
+    chat = Chat(pares, reflections)
+    chat.converse()
 
-# Crear el modelo de regresión logística
-model = LogisticRegression()
 
-# Entrenar el modelo con los datos de entrenamiento
-model.fit(X_train, y_train)
-
-# Predecir las etiquetas para los datos de prueba
-y_pred = model.predict(X_test)
-
-# Calcular la precisión del modelo
-accuracy = accuracy_score(y_test, y_pred)
-print("Precisión del modelo:", accuracy)
+if __name__ == "__main__":
+    chatbot()
