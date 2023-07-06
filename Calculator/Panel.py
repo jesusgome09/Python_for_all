@@ -110,7 +110,10 @@ def Panel():
         url = "https://www.youtube.com/channel/UCqVmDF4sLF8umTHAiIr1uTA?sub_confirmation=1"
         webbrowser.open(url)
     def Github():
-        url = "https://github.com/Joseph-Garcia"
+        url = "https://github.com/jesusgome09"
+        webbrowser.open(url)
+    def Repositorio():
+        url = "https://github.com/jesusgome09/Python_for_all"
         webbrowser.open(url)
 
     # creamos una ventana y configuramos
@@ -132,8 +135,9 @@ def Panel():
     opciones_menu.add_command(label="Fondo por defecto", command=default)
     opciones_menu2 = tk.Menu(menu)
     menu.add_cascade(label='Create By', menu=opciones_menu2)
-    opciones_menu2.add_command(label="Youtube")
-    opciones_menu2.add_command(label="GitHub")
+    opciones_menu2.add_command(label="Youtube", command=Youtube)
+    opciones_menu2.add_command(label="GitHub", command=Github)
+    opciones_menu2.add_command(label="Repositorio", command=Repositorio)
     menu.add_command(label="Salir", command=window.destroy)
 
     # Creamos un titulo y configuramos
