@@ -29,7 +29,7 @@ def abrir():
 
     colorPrimario, colorSegundario, colorT = "#2271b3", "#B37A22", "#663E00"
 
-    window = ct.CTk()
+    window = tk.Tk()
     window.title("Gestor Administrativo")
     window.config(background=colorPrimario)
     window.geometry("300x240+500+220")

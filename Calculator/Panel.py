@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from tkinter import PhotoImage
 import customtkinter as ct
 import Operaciones
 import webbrowser
@@ -121,6 +121,8 @@ def Panel():
     window.title("Calculatore")
     window.geometry("360x470+500+120")
     window.config(background=color_principal)
+    icon = PhotoImage(file="Calculator\logo.png")
+    window.iconphoto(True, icon)
 
     # Creamos un menu principal y configuramos
     menu = tk.Menu(window)
