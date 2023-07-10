@@ -1,25 +1,34 @@
 import tkinter as tk
+import customtkinter as ct
 
-def cambiar_a_azul():
-    frame2.pack_forget()
-    frame.pack(expand=True, fill='both')
+class Window(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.geometry('500x500+400+100')
+        self.title('Pydrez')
 
-def cambiar_a_rojo():
-    frame.pack_forget()
-    frame2.pack(expand=True, fill='both')
+        self.inicio = Inicio(self)
+        self.inicio.pack(fill='both', expand=True)
 
-window = tk.Tk()
-window.geometry('500x500+400+100')
 
-frame = tk.Frame(window, bg='blue', width=500, height=500)
-frame.pack(expand=True, fill='both')
+class Inicio(tk.Frame):
+    def __init__(self, parent):
+        super().__init__(parent, width=500, height=500)
 
-boton_frame = tk.Button(frame, text='poner azul', command=cambiar_a_rojo)
-boton_frame.pack()
+        # creacion de label titulo
+        label = Clabel(self, text='Pydrez', font=('Arial',80), text_color='black', fg_color='transparent')
+        label2 = Clabel(self, text='Pydrez', font=('Arial',80), text_color='white', fg_color='transparent')
+        label.place(x=90, y=20)
+        label2.place(x=100, y=20)
 
-frame2 = tk.Frame(window, bg='red', width=500, height=500)
+class Clabel(ct.CTkLabel):
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent, **kwargs)
 
-boton_frame2 = tk.Button(frame2, text='poner rojo', command=cambiar_a_azul)
-boton_frame2.pack()
 
-window.mainloop()
+
+if __name__ == '__main__':
+    window = Window()
+    frame = Inicio(window)
+    window.frame = frame
+    window.mainloop()
