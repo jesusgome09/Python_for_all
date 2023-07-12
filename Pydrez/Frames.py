@@ -13,17 +13,24 @@ class Window(tk.Tk):
 
 class Inicio(tk.Frame):
     def __init__(self, parent):
-        super().__init__(parent, width=500, height=500)
+        super().__init__(parent, width=500, height=500, bg='#E2A146')
 
         # creacion de label titulo
         label = Clabel(self, text='Pydrez', font=('Arial',80), text_color='black', fg_color='transparent')
-        label2 = Clabel(self, text='Pydrez', font=('Arial',80), text_color='white', fg_color='transparent')
-        label.place(x=90, y=20)
-        label2.place(x=100, y=20)
+        label.pack()
+        #creacion de botones
+        inciar_juego = Cboton(self, text='Iniciar Juego')
+        creditos = Cboton(self, text='Creditos')
+        inciar_juego.pack(ipadx=5, ipady=5, pady=50)
+        creditos.pack(ipadx=5, ipady=5, pady=10)
 
 class Clabel(ct.CTkLabel):
     def __init__(self, parent, **kwargs):
         super().__init__(parent, **kwargs)
+class Cboton(ct.CTkButton):
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent, **kwargs, font=('Inter',50), text_color='black', hover_color='grey', fg_color='white')
+
 
 
 

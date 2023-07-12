@@ -1,14 +1,26 @@
-my_list = [8, 10, 6, 2, 4, 54, 23, 1, 34, 21, 54, 5]  # lista a ordenar
-swapped = True  # Lo necesitamos verdadero (True) para ingresar al bucle while.
+# coincide con ?
 
-while swapped:
-    swapped = False  # no hay intercambios hasta ahora
-    for i in range(len(my_list) - 1):
-        if my_list[i] > my_list[i + 1]:
-            swapped = True  # ¡ocurrió el intercambio!
-            my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]
+patrones = [
+    'coco','coca','seco','piso'
+    'gato','gata','gecko','palo',
+    'perro',
+    'jirafa',
+]
 
-print(my_list)
+palabra = input("Introduce una palabra: ")
 
-#en realidad s epuede hacer con sort()
+
+for opcion in patrones:
+    if opcion[0] == palabra[0]:
+        if opcion[1] == palabra[1]:
+            if opcion[2] == palabra[2]:
+                if opcion[3] == palabra[3]:
+                    print(f"{palabra} coincide con {opcion}")
+                else:
+                    print(f"{palabra} coincide con {opcion} por las tres primeras letra")
+            else:
+                print(f"{palabra} coincide con {opcion} por las dos primeras letra")
+        else:
+            print(f"{palabra} coincide con {opcion} por la primera letra")
+
 

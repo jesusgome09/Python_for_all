@@ -22,7 +22,7 @@ class Inicio(tk.Frame):
 
 
         # Cargar la imagen
-        imagen = Image.open("Pydrez/recursos/titulo.png")
+        imagen = Image.open("titulo.png")
         imagen = imagen.resize((200, 200))
         imagen = imagen.convert("RGBA")
         imagen = Image.alpha_composite(imagen, Image.new("RGBA", imagen.size, (0, 0, 0, 0)))
