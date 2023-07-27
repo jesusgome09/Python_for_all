@@ -21,17 +21,7 @@ class Inicio(tk.Frame):
         self.caja1.bind("<Return>", self.enviar)
 
 
-        # Cargar la imagen
-        imagen = Image.open("titulo.png")
-        imagen = imagen.resize((200, 200))
-        imagen = imagen.convert("RGBA")
-        imagen = Image.alpha_composite(imagen, Image.new("RGBA", imagen.size, (0, 0, 0, 0)))
-        imagen = Image.composite(imagen, (0, 0), mask=imagen)
-        imagen_tk = ImageTk.PhotoImage(imagen)
-        # Crear un Label y mostrar la imagen
-        label_imagen = tk.Label(self, image=imagen_tk)
-        label_imagen.image = imagen_tk
-        label_imagen.pack()
+    
 
     def enviar(self, event):
         if self.caja1.get() == "cambio":
