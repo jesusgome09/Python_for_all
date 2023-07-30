@@ -1,6 +1,8 @@
 import tkinter as tk
 
 import customtkinter as ct
+import SqliteP
+import Logica
 
 
 class Window(tk.Tk):
@@ -9,12 +11,18 @@ class Window(tk.Tk):
         self.geometry("900x600+260+50")
         self.title("Spash Car")
 
+        self.shared_data = {}
+
         self.inicio = Inicio(self)
         self.inicio.pack(fill="both", expand=True)
 
         self.how = How(self)
+        self.rastreo = Rastreo(self)
+        self.login = Login(self)
+        self.reg = Reg(self)
+        self.panel = Panel(self)
 
-        # self.rastreo = Login(self)
+        # self.rastreo = Reg(self)
         # self.rastreo.pack(fill="both", expand=True, padx=60)
 
 
@@ -22,12 +30,9 @@ class Window(tk.Tk):
 informacion = "Bienvenido al mejor lavadero de autos de toda colombia"
 
 
-class Inicio(tk.Frame):
+class Inicio(tk.Frame):  # Todavia falta arreglar el boton Buscar
     def __init__(self, parent):
         super().__init__(parent)
-
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure((0, 1), weight=1)
 
         # agrego items
 
@@ -54,7 +59,12 @@ class Inicio(tk.Frame):
 
         # Creo boton buscar
         self.buscar_button = ct.CTkButton(
-            self, text="Buscar", width=350, height=45, font=("Arial", self.tamano)
+            self,
+            text="Buscar",
+            width=350,
+            height=45,
+            font=("Arial", self.tamano),
+            command=self.buscar,
         )
         self.buscar_button.pack(padx=20, pady=20)
 
@@ -65,6 +75,7 @@ class Inicio(tk.Frame):
             width=350,
             height=45,
             font=("Arial", self.tamano),
+            command=self.iniciar_seccion,
         )
         self.login_button.pack(padx=20, pady=20)
         # Creo boton como encontrarnos
@@ -78,27 +89,50 @@ class Inicio(tk.Frame):
         )
         self.how_button.pack(padx=20, pady=20)
 
+        self.buscar_button.bind("<Return>", command=self.buscar_con_intro)
+        self.inicializar = Rastreo(self)
+
+
     def como_encontrarnos(self):
         self.pack_forget()
         parent = self.master
         parent.how.pack(expand=True, fill="both")
 
+    def buscar(self):
+        id__ = self.entry_mi_id.get()
+        if SqliteP.buscar_auto(id__):
+            self.inicializar.agregar_datos(id__)
+            self.pack_forget()
+            parent = self.master
+            parent.rastreo.pack(expand=True, fill="both")
 
-class Rastreo(tk.Frame):
+        else:
+            tk.messagebox.showerror(title="Error", message="No se a podido encontrar")
+
+    def iniciar_seccion(self):
+        self.pack_forget()
+        parent = self.master
+        parent.login.pack(expand=True, fill="both")
+
+    def buscar_con_intro(self, event):
+        print("holaaaa")
+        self.buscar()
+
+
+class Rastreo(tk.Frame):  # Todavia me falta mucho
     def __init__(self, parent):
         super().__init__(parent)
 
         # variables
-
-        self.idInteger = 12345678912345
+        self.idInteger = 12345
         self.id = str(self.idInteger)
         self.cliente = "Juan Gonsalez"
         self.marca = "Honda"
         self.trabajador = "David Gomez"
         self.valorInteger = 12.456
         self.valor = str(self.valorInteger)
-        self.fecha_final = "26/07/2023"
-        self.fecha_inicial = "01/10/2005"
+        self.fecha_final = "26/07/2023 10:12"
+        self.fecha_inicial = "01/10/2005 21:30"
         self.tiempo_restante = "01:22"
 
         # frames
@@ -153,10 +187,10 @@ class Rastreo(tk.Frame):
         self.label_titulo.pack(pady=10)
         self.label_id.pack(side="left")
         self.label_dueño.pack(side="right")
-        self.frame1.pack(fill="x", pady=12)
+        self.frame1.pack(fill="x", pady=12, padx=35)
         self.label_marca.pack(side="left")
         self.label_trabajador.pack(side="right")
-        self.frame2.pack(fill="x", pady=12)
+        self.frame2.pack(fill="x", pady=12, padx=35)
         self.label_valor.pack(pady=12)
         self.label_fecha_inicial.pack(pady=12)
         self.label_fecha_final.pack(pady=12)
@@ -164,6 +198,27 @@ class Rastreo(tk.Frame):
         self.boton_llamar.pack(side="right")
         self.boton_retroceder.pack(side="left")
         self.frame3.pack(fill="x", pady=20, padx=60)
+
+    def agregar_datos(self, id__):
+        print("sucedio")
+
+        datos = SqliteP.devolver_datos_carros(id__)
+
+        self.label_id.config(text=f'Id: {datos[0]}')
+        self.id = datos[0]
+        self.cliente = datos[1]
+        self.marca = datos[2]
+        self.trabajador = datos[3]
+        self.valorInteger = datos[4]
+        if datos[5] != "":
+            self.fecha_final = datos[5]
+            self.fecha_final += f" {datos[9]}"
+        else:
+            self.fecha_final = "No Disponible"
+        self.fecha_inicial = datos[6]
+        self.fecha_inicial += f" {datos[7]}"
+        # self.tiempo_restante = Logica.ver_tiempo_restante(datos[6],datos[8])
+
 
 
 class Login(tk.Frame):
@@ -231,6 +286,7 @@ class Login(tk.Frame):
             text="Iniciar seccion",
             font=("Comic Sans MS", 30, "italic"),
             width=200,
+            command=self.iniciar_seccion
         )
 
         # llamar elementos
@@ -246,12 +302,22 @@ class Login(tk.Frame):
         self.entry_usuario.pack(side="left")
         self.entry_contrasena.pack(side="left")
 
-        self.boton_retroceder.pack(side="left", padx=35)
-        self.boton_registrarse.pack(side="left", padx=25)
-        self.boton_iniciar_seccion.pack(side="left", padx=20)
+        self.boton_retroceder.pack(side="left", padx=45)
+        self.boton_registrarse.pack(side="left", padx=35)
+        self.boton_iniciar_seccion.pack(side="left", padx=30)
 
         self.frame3.pack(fill="x", pady=40)
 
+    def iniciar_seccion(self):
+        user = self.entry_usuario.get()
+        passw = self.entry_contrasena.get()
+
+        if SqliteP.verificar_correo(user, passw) or SqliteP.verificar_username(user, passw):
+            self.pack_forget()
+            parent = self.master
+            parent.panel.pack(fill='both', expand=True)
+        else:
+            tk.messagebox.showerror(title='No puede iniciar seccion', message='Usuario o contraseña incorrecta')
 
 class How(tk.Frame):
     def __init__(self, parent):
@@ -299,35 +365,218 @@ class How(tk.Frame):
         self.label_titulo.pack()
         self.label_informacion.pack()
         self.label_mapa.pack()
-        self.frame1.pack(side="left")
+        self.frame1.pack(side="left", padx=50)
         self.boton_llamar.pack(pady=20)
         self.boton_chatear.pack(pady=20)
         self.boton_retroceder.pack(pady=20)
-        self.frame2.pack(side="right")
+        self.frame2.pack(side="right", padx=40)
 
 
 class Reg(tk.Frame):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # frames
+
+        self.frame1 = tk.Frame(self)
+        self.frame2 = tk.Frame(self)
+        self.frame3 = tk.Frame(self)
+        self.frame4 = tk.Frame(self)
+        self.frame4_5 = tk.Frame(self)
+        self.frame5 = tk.Frame(self)
+
+        # labels
+
+        self.label_titulo = tk.Label(
+            self, text="Registrarse", font=("Comic Sans MS", 40, "italic")
+        )
+        self.label_nombre = tk.Label(
+            self.frame1, text="Nombres: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_apellido = tk.Label(
+            self.frame1, text="Apellidos: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_correo = tk.Label(
+            self.frame2, text="Correo: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_celular = tk.Label(
+            self.frame2, text="Celular: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_nombre_de_usuario = tk.Label(
+            self.frame3,
+            text="Nombre de usuario: ",
+            font=("Comic Sans MS", 18, "italic"),
+        )
+        self.label_cc = tk.Label(
+            self.frame3, text="C.C: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_fecha_de_nacimiento = tk.Label(
+            self.frame4_5,
+            text="Fecha de nacimiento",
+            font=("Comic Sans MS", 18, "italic"),
+        )
+        self.label_como_lavas = tk.Label(
+            self.frame4_5, text="¿Como lavas?", font=("Comic Sans MS", 18, "italic")
+        )
+
+        # entrys
+
+        self.entry_nombres = ct.CTkEntry(
+            self.frame1,
+            placeholder_text="Juan Manuel",
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+        self.entry_apellidos = ct.CTkEntry(
+            self.frame1,
+            placeholder_text="Perez Novoa",
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+        self.entry_correo = ct.CTkEntry(
+            self.frame2,
+            placeholder_text="juanpereznova@gmail.com",
+            font=("Comic Sans MS", 18, "italic"),
+            width=250,
+        )
+        self.entry_celular = ct.CTkEntry(
+            self.frame2,
+            placeholder_text="1234567894",
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+        self.entry_nombre_de_usuario = ct.CTkEntry(
+            self.frame3,
+            placeholder_text="juan12",
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+        self.entry_cc = ct.CTkEntry(
+            self.frame3,
+            placeholder_text="1605549973",
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+
+        # date piker
+
+        self.date_piker_fecha_de_nacimiento = ct.CTkEntry(
+            self.frame4,
+            placeholder_text="01/10/2000",
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+
+        # box
+
+        self.var1 = tk.StringVar(self)
+        self.var1.set("Manual")
+
+        self.opciones = ["Manual", "Automatico"]
+        self.box_como_lavas = ct.CTkOptionMenu(
+            self.frame4,
+            variable=self.var1,
+            values=self.opciones,
+            font=("Comic Sans MS", 18, "italic"),
+            width=200,
+        )
+
+        # radiobutton
+
+        self.var2 = tk.IntVar(value=0)
+        self.radiobutton_tyc = ct.CTkRadioButton(
+            self,
+            text="Acepto los terminos y condiciones",
+            variable=self.var2,
+            value=1,
+            font=("Comic Sans MS", 20, "italic"),
+            command=self.acepto_terminos_y_condiciones,
+        )
+
+        # botones
+
+        self.boton_retroceder = ct.CTkButton(
+            self.frame5,
+            text="Retroceder",
+            font=("Comic Sans MS", 18, "italic"),
+            width=220,
+            height=45,
+        )
+        self.boton_registrarse = ct.CTkButton(
+            self.frame5,
+            text="Registrarse",
+            font=("Comic Sans MS", 18, "italic"),
+            width=220,
+            height=45,
+            state="normal",
+        )
+
+        # llamamos elementos
+
+        self.label_titulo.pack()
+
+        self.frame1.pack(fill="x", pady=20)
+        self.frame2.pack(fill="x", pady=20)
+        self.frame3.pack(fill="x", pady=30)
+        self.frame4_5.pack(fill="x", padx=30)
+        self.frame4.pack(fill="x", pady=10, padx=30)
+        self.label_nombre.pack(side="left")
+        self.entry_nombres.pack(side="left")
+        self.entry_apellidos.pack(side="right")
+        self.label_apellido.pack(side="right")
+        self.label_correo.pack(side="left")
+        self.entry_correo.pack(side="left", padx=30)
+        self.entry_celular.pack(side="right")
+        self.label_celular.pack(side="right", padx=30)
+        self.label_nombre_de_usuario.pack(side="left")
+        self.entry_nombre_de_usuario.pack(side="left")
+        self.entry_cc.pack(side="right")
+        self.label_cc.pack(side="right")
+
+        self.label_fecha_de_nacimiento.pack(side="left", padx=39)
+        self.date_piker_fecha_de_nacimiento.pack(side="left", padx=50)
+        self.label_como_lavas.pack(side="right", padx=30)
+        self.box_como_lavas.pack(side="right")
+        self.radiobutton_tyc.pack(pady=15)
+        self.frame5.pack(fill="x", pady=30, padx=30)
+        self.boton_retroceder.pack(side="left")
+        self.boton_registrarse.pack(side="right")
+
+        self.boton_registrarse.configure(state="disabled")
+        self.boton_retroceder.configure(command=self.retroceder)
+
+    def acepto_terminos_y_condiciones(self):
+        self.boton_registrarse.configure(state="normal")
+
+    def retroceder(self):
+        self.pack_forget()
+        parent = self.master
+        parent.inicio.pack(fill="both", expand=True)
 
 
 class PanelAdmin(tk.Frame):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 class Panel(tk.Frame):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 class Añadir(tk.Frame):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 class Entregar(tk.Frame):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 class Emples(tk.Frame):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 def run():
