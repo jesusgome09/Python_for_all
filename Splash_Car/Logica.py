@@ -1,11 +1,13 @@
 import datetime
 
-def ver_tiempo_restante(hora_inicio,tiempo_total):
+id_carro = 78945612378945
+Status = False
 
-    print(type(datetime.time(12,30)))
+def agregar_id(nuevo_id):
+    id_carro = nuevo_id
 
-    return ""
-
-
-print(datetime.timedelta(hours=1, minutes=25)+datetime.timedelta(hours=2))#se debe acabar
-print(datetime.time())
+def cambiar_status(status):
+    if status == 'on':
+        Status = True
+    elif status == 'off':
+        Status = False

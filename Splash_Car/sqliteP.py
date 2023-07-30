@@ -58,11 +58,12 @@ def agregar_auto(
     tiempo,
     trabajador,
 ):
-    file_ = connect(ubicacion, "a", isolation_level=None)
+    file_ = connect(ubicacion)
     cursor = file_.cursor()
     cursor.execute(
-        f"id, nombre_cliente, marca, valor, fecha_entrada, tiempo, trabajador, hora_entrada) VALUES({id_}, '{nombre_cliente}', '{marca}', {valor}, '{fecha_entrada}', {tiempo}, '{trabajador}','{hora_entrada}'"
+        f"INSERT INTO carros (id, nombre_cliente, marca, valor, fecha_entrada, tiempo, trabajador, hora_entrada) VALUES({id_}, '{nombre_cliente}', '{marca}', {valor}, '{fecha_entrada}', {tiempo}, '{trabajador}','{hora_entrada}')"
     )
+    file_.commit()
     file_.close()
     return True
 
@@ -178,3 +179,5 @@ def agregar_columna_hora_entrada():
         # 5. Cerrar la conexión con la base de datos.
         conn.close()
 
+
+#agregar_auto(12346578912345,'pedro lopez','Honda',12000,'30/07/2023','01:06',2,1068823310)

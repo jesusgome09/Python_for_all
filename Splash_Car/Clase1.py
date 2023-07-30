@@ -11,8 +11,6 @@ class Window(tk.Tk):
         self.geometry("900x600+260+50")
         self.title("Spash Car")
 
-        self.shared_data = {}
-
         self.inicio = Inicio(self)
         self.inicio.pack(fill="both", expand=True)
 
@@ -21,13 +19,6 @@ class Window(tk.Tk):
         self.login = Login(self)
         self.reg = Reg(self)
         self.panel = Panel(self)
-
-        # self.rastreo = Reg(self)
-        # self.rastreo.pack(fill="both", expand=True, padx=60)
-
-
-# creo una variable para almacenar una informacion
-informacion = "Bienvenido al mejor lavadero de autos de toda colombia"
 
 
 class Inicio(tk.Frame):  # Todavia falta arreglar el boton Buscar
@@ -41,9 +32,11 @@ class Inicio(tk.Frame):  # Todavia falta arreglar el boton Buscar
         )
         self.titulo.pack(fill="x", pady=15)
 
-        global informacion  # Importo una variable
-
-        self.information = tk.Label(self, text=informacion, font=("Arial", 14))
+        self.information = tk.Label(
+            self,
+            text="Bienvenido al mejor lavadero de autos de toda colombia",
+            font=("Arial", 14),
+        )
         self.information.pack(fill="both")
 
         self.tamano = 40
@@ -89,9 +82,7 @@ class Inicio(tk.Frame):  # Todavia falta arreglar el boton Buscar
         )
         self.how_button.pack(padx=20, pady=20)
 
-        self.buscar_button.bind("<Return>", command=self.buscar_con_intro)
-        self.inicializar = Rastreo(self)
-
+        # self.buscar_button.bind("<<Return>>", command=self.buscar_con_intro)
 
     def como_encontrarnos(self):
         self.pack_forget()
@@ -101,7 +92,7 @@ class Inicio(tk.Frame):  # Todavia falta arreglar el boton Buscar
     def buscar(self):
         id__ = self.entry_mi_id.get()
         if SqliteP.buscar_auto(id__):
-            self.inicializar.agregar_datos(id__)
+            Logica.agregar_id(id__)
             self.pack_forget()
             parent = self.master
             parent.rastreo.pack(expand=True, fill="both")
@@ -124,16 +115,20 @@ class Rastreo(tk.Frame):  # Todavia me falta mucho
         super().__init__(parent)
 
         # variables
-        self.idInteger = 12345
+        self.idInteger = 15
         self.id = str(self.idInteger)
-        self.cliente = "Juan Gonsalez"
-        self.marca = "Honda"
-        self.trabajador = "David Gomez"
-        self.valorInteger = 12.456
+        self.cliente = ""
+        self.marca = ""
+        self.trabajador = ""
+        self.valorInteger = 1
         self.valor = str(self.valorInteger)
-        self.fecha_final = "26/07/2023 10:12"
-        self.fecha_inicial = "01/10/2005 21:30"
-        self.tiempo_restante = "01:22"
+        self.fecha_final = ""
+        self.fecha_inicial = ""
+        self.tiempo_restante = ""
+
+        self.bind("<<Show>>", self.agregar_datos)
+
+
 
         # frames
 
@@ -199,25 +194,28 @@ class Rastreo(tk.Frame):  # Todavia me falta mucho
         self.boton_retroceder.pack(side="left")
         self.frame3.pack(fill="x", pady=20, padx=60)
 
-    def agregar_datos(self, id__):
-        print("sucedio")
+    def agregar_datos(self, event):
+        datos = SqliteP.devolver_datos_carros(Logica.id_carro)
+        print(datos[0])
+        print(datos[1])
+        print(datos[2])
 
-        datos = SqliteP.devolver_datos_carros(id__)
-
-        self.label_id.config(text=f'Id: {datos[0]}')
+        self.label_id.config(text=datos[0])
         self.id = datos[0]
         self.cliente = datos[1]
         self.marca = datos[2]
         self.trabajador = datos[3]
         self.valorInteger = datos[4]
         if datos[5] != "":
-            self.fecha_final = datos[5]
-            self.fecha_final += f" {datos[9]}"
+            self.fecha_final = str(datos[5])
+            self.fecha_final = self.fecha_final + f" {str(datos[9])}"
         else:
             self.fecha_final = "No Disponible"
         self.fecha_inicial = datos[6]
-        self.fecha_inicial += f" {datos[7]}"
+        self.fecha_inicial = self.fecha_inicial + f" {str(datos[7])}"
         # self.tiempo_restante = Logica.ver_tiempo_restante(datos[6],datos[8])
+
+
 
 
 
@@ -286,7 +284,7 @@ class Login(tk.Frame):
             text="Iniciar seccion",
             font=("Comic Sans MS", 30, "italic"),
             width=200,
-            command=self.iniciar_seccion
+            command=self.iniciar_seccion,
         )
 
         # llamar elementos
@@ -312,12 +310,18 @@ class Login(tk.Frame):
         user = self.entry_usuario.get()
         passw = self.entry_contrasena.get()
 
-        if SqliteP.verificar_correo(user, passw) or SqliteP.verificar_username(user, passw):
+        if SqliteP.verificar_correo(user, passw) or SqliteP.verificar_username(
+            user, passw
+        ):
             self.pack_forget()
             parent = self.master
-            parent.panel.pack(fill='both', expand=True)
+            parent.panel.pack(fill="both", expand=True)
         else:
-            tk.messagebox.showerror(title='No puede iniciar seccion', message='Usuario o contraseña incorrecta')
+            tk.messagebox.showerror(
+                title="No puede iniciar seccion",
+                message="Usuario o contraseña incorrecta",
+            )
+
 
 class How(tk.Frame):
     def __init__(self, parent):
@@ -574,11 +578,6 @@ class Entregar(tk.Frame):
         super().__init__(parent)
 
 
-class Emples(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
-
-
 def run():
     window = Window()
     frame = Inicio(window)
@@ -586,4 +585,4 @@ def run():
     window.mainloop()
 
 
-run()  # eliminar
+run()
