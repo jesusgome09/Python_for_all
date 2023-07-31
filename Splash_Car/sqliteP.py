@@ -1,6 +1,10 @@
+import os
 from sqlite3 import connect, Error
 
-ubicacion = "Splash_Car/datebase.db"
+absFilePath = os.path.abspath(__file__)
+path, filename = os.path.split(absFilePath)
+path+="\\"
+ubicacion = path + "datebase.db"
 
 
 def agregar_usuario(

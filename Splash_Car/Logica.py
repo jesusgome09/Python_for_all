@@ -1,13 +1,16 @@
 import datetime
 
-id_carro = 78945612378945
-Status = False
+def hora(hora_inicial, tiempo):
+    hora_actual = datetime.datetime.now()
 
-def agregar_id(nuevo_id):
-    id_carro = nuevo_id
+    hora_inicial_obj = datetime.datetime.strptime(hora_inicial, "%H:%M")
+    hora_final_obj = hora_inicial_obj + datetime.timedelta(hours=tiempo)
 
-def cambiar_status(status):
-    if status == 'on':
-        Status = True
-    elif status == 'off':
-        Status = False
+    if hora_actual > hora_final_obj:
+        return "Listo"
+
+    tiempo_restante_obj = hora_final_obj - hora_actual
+    tiempo_restante = str(tiempo_restante_obj).split('.')[0]
+
+    return tiempo_restante
+
