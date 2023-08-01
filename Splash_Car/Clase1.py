@@ -638,6 +638,17 @@ class Panel(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.label_titulo = tk.Label(self, text="Panel", font=("Comic Sans MS",35,"italic"))
+        self.label_autos_en_cola = tk.Label(self, text="Autos en cola:")
+        self.label_autos_listos = tk.Label(self, text="Autos listos:")
+        self.label_ganancia_diaria = tk.Label(self, text="Ganancia Diaria:")
+        self.Label_usuario = tk.Label(self, text="Usuario")
+        self.Label_icono_usuario = tk.Label(self, text="Usuario")
+        self.Label_frase_del_dia = tk.Label(self, text="frase del dia:")
+        #self.frase_del_dia
+        #self.grafico_analisis
+        self.boton_cerrar_seccion = ct.CTkButton(self, text="Cerrar Seccion")
+
 
 class Añadir(tk.Frame):
     def __init__(self, parent):
