@@ -6,6 +6,7 @@ import customtkinter as ct
 import SqliteP
 import Logica
 
+
 absFilePath = os.path.abspath(__file__)
 path, filename = os.path.split(absFilePath)
 path += "\\"
@@ -133,7 +134,6 @@ class Inicio(tk.Frame):
     def buscar_con_intro(self, event):
         print("holaaaa")
         self.buscar()
-
 
 class Rastreo(tk.Frame):  # Todavia me falta mucho
     def __init__(self, parent):
@@ -339,15 +339,15 @@ class Login(tk.Frame):
                 message="Usuario o contraseña incorrecta",
             )
 
-    def regresar(self):
-        self.pack_forget()
-        parent = self.master
-        parent.inicio.pack(fill='both', expand=True)
-
     def registrarse(self):
         self.pack_forget()
         parent = self.master
         parent.reg.pack(fill='both', expand=True)
+
+    def regresar(self):
+        self.pack_forget()
+        parent = self.master
+        parent.inicio.pack(fill='both', expand=True)
 
 
 class How(tk.Frame):
@@ -597,6 +597,7 @@ class Reg(tk.Frame):
         self.pack_forget()
         parent = self.master
         parent.inicio.pack(fill="both", expand=True)
+
 
 
 class PanelAdmin(tk.Frame):

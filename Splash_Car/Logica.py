@@ -13,4 +13,3 @@ def hora(hora_inicial, tiempo):
     tiempo_restante = str(tiempo_restante_obj).split('.')[0]
 
     return tiempo_restante
-
