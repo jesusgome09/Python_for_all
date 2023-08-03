@@ -1,4 +1,11 @@
-id_car = 12345678912345
+grado = 2
 
-def cambiar(id_car_):
-    id_car = id_car_
+match grado:
+    case 1:
+        print("Hola")
+    case 2:
+        print("Melo")
+
+fonts = pyfliglet.FligletFont.getfonts()
+slecio0nar = ramdon.choises(fonts)
+acsii = pyfiglet.figlet_format(mensaje, font=slecio0nar)
