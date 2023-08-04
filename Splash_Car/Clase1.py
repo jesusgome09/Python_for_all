@@ -17,8 +17,9 @@ class Window(tk.Tk):
         super().__init__()
         self.geometry("900x600+260+50")
         self.title("Car Wash")
+        self.resizable(False, False)
 
-        self.inicio = Inicio(self)
+        self.inicio = PanelAdmin(self)
         self.inicio.pack(fill="both", expand=True)
 
         self.how = How(self)
@@ -272,7 +273,7 @@ class Login(tk.Frame):
         )
         self.entry_contrasena = ct.CTkEntry(
             self.frame2,
-            placeholder_text="************",
+            placeholder_text="*****CC*****",
             font=("Comic Sans MS", 26, "italic"),
             width=400,
         )
@@ -587,7 +588,7 @@ class Reg(tk.Frame):
         self.boton_retroceder.pack(side="left")
         self.boton_registrarse.pack(side="right")
 
-        self.boton_registrarse.configure(state="disabled")
+        self.boton_registrarse.configure(state="disabled", command=self.registrarse)
         self.boton_retroceder.configure(command=self.retroceder)
 
     def acepto_terminos_y_condiciones(self):
@@ -598,42 +599,107 @@ class Reg(tk.Frame):
         parent = self.master
         parent.inicio.pack(fill="both", expand=True)
 
+    def registrarse(self):
+        nombre = self.entry_nombres.get()
+        apellido = self.entry_apellidos.get()
+        correo = self.entry_correo.get()
+        celular = self.entry_celular.get()
+        celular = int(celular)
+        username = self.entry_nombre_de_usuario.get()
+        identificacion = self.entry_cc.get()
+        identificacion = int(identificacion)
+        fecha_nacimiento = self.date_piker_fecha_de_nacimiento.get()
+        modo_lavado = self.var1.get()
+        rango = 1
+
+        if (nombre,apellido,correo, username, fecha_nacimiento, modo_lavado)  != "":
+            if (celular, identificacion) != "":
+                if SqliteP.agregar_usuario(
+                        nombre,
+                        apellido,
+                        correo,
+                        celular,
+                        username,
+                        identificacion,
+                        fecha_nacimiento,
+                        modo_lavado,
+                        rango,
+                ):
+                    tk.messagebox.showinfo(title="Registrado", message="Usuario registrado con exito")
+                    self.pack_forget()
+                    parent = self.master
+                    parent.login.pack(fill="both", expand=True)
+                elif SqliteP.agregar_usuario(
+                        nombre,
+                        apellido,
+                        correo,
+                        celular,
+                        username,
+                        identificacion,
+                        fecha_nacimiento,
+                        modo_lavado,
+                        rango,
+                ) == "UNIQUE constraint failed: usuarios.username":
+                    tk.messagebox.showerror(title="Error", message="CC o nombre de usuario ya registrado")
+                else:
+                    tk.messagebox.showerror(title="Error", message="No se pudo registrar, a ocurrido un error")
+            else:
+                tk.messagebox.showwarning(title="Error", message="Por favor rellena todos los campos")
+        else:
+            tk.messagebox.showwarning(title="Error", message="Por favor rellena todos los campos")
 
 
 class PanelAdmin(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.label_titulo = tk.Label(self, text="Panel Administrador",
-        font=("Comic Sans MS", 35, "italic")
+
+        #frames
+        self.frame1 = tk.Frame(self)
+        self.frame2 = tk.Frame(self)
+        self.frame3 = tk.Frame(self.frame1)
+        self.frame4 = tk.Frame(self.frame1)
+        self.frame5 = tk.Frame(self.frame2, width=200, height=100)
+        self.frame6 = tk.Frame(self.frame2)
+
+        self.label_titulo = tk.Label(self.frame1, text="Enfoque general del dia",
+        font=("Comic Sans MS", 30, "italic")
         )
-        self.label_autos_en_cola = tk.Label(self, text="Autos en cola: ")
-        self.label_autos_listos = tk.Label(self, text="Autos Listo: ")
-        self.label_ingreso_diario = tk.Label(self, text="Ingreso diario: ")
-        self.label_autos_lavados = tk.Label(self, text="Autos lavados: ")
-        self.label_usuario = tk.Label(self, text="Usuario")
-        self.label_icono_usuario = tk.Label(self, text="icono_usuario")
+        self.label_autos_en_cola = tk.Label(self.frame3, text="Autos en cola: ", font=("Comic Sans MS", 18, "italic"))
+        self.label_autos_listos = tk.Label(self.frame3, text="Autos Listos: ", font=("Comic Sans MS", 18, "italic"))
+        self.label_ingreso_diario = tk.Label(self.frame4, text="Ingreso diario: ", font=("Comic Sans MS", 18, "italic"))
+        self.label_autos_lavados = tk.Label(self.frame4, text="Autos lavados: ", font=("Comic Sans MS", 18, "italic"))
+        self.label_usuario = tk.Label(self.frame6, text="jesusgome09", font=("Comic Sans MS", 18, "italic"))
+        self.icono_usuario = tk.PhotoImage(file=(path + "user-icon.png"))
+        self.icono_usuario = self.icono_usuario.subsample(7, 7)
+        self.label_icono_usuario = tk.Label(self.frame6, image=self.icono_usuario)
 
         self.grafico_estadistico = 'pronto'
 
-        self.boton_añadir = ct.CTkButton(self, text='Añadir')
-        self.boton_entregar = ct.CTkButton(self, text='Entregar')
-        self.boton_gestionar_empleados = ct.CTkButton(self, text='Gestionar empleados')
-        self.boton_cerrar_seccion = ct.CTkButton(self, text='Cerrar seccion')
+        self.boton_añadir = ct.CTkButton(self.frame2, text='Añadir', font=("Comic Sans MS", 32, "italic"), width=300, height=45)
+        self.boton_entregar = ct.CTkButton(self.frame2, text='Entregar', font=("Comic Sans MS", 32, "italic"), width=300, height=45)
+        self.boton_gestionar_empleados = ct.CTkButton(self.frame2, text='Gestionar empleados', font=("Comic Sans MS", 30, "italic"), width=300, height=45)
+        self.boton_cerrar_seccion = ct.CTkButton(self.frame2, text='Cerrar seccion', font=("Comic Sans MS", 32, "italic"), width=300, height=45)
 
+        self.label_titulo.pack(pady=30, padx=20)
+        self.frame6.pack(ipadx=0, ipady=0, padx=0, pady=0)
+        self.frame1.pack(side='left', fill='y', padx=20)
+        self.frame2.pack(side='right', ipadx=20)
+        self.frame3.pack()
+        self.frame4.pack()
+        self.frame5.pack()
 
-        self.label_titulo.pack()
-        self.label_autos_en_cola.pack()
-        self.label_autos_listos.pack()
-        self.label_ingreso_diario.pack()
-        self.label_autos_lavados.pack()
-        self.label_usuario.pack()
-        self.label_icono_usuario.pack()
+        self.label_autos_en_cola.pack(side='left', padx=20, pady=10)
+        self.label_autos_listos.pack(side='right', padx=20, pady=10)
+        self.label_ingreso_diario.pack(side='left', padx=20, pady=10)
+        self.label_autos_lavados.pack(side='right', padx=20, pady=10)
+        self.label_icono_usuario.pack(side='right')
+        self.label_usuario.pack(side='right')
         #self.grafico_estadistico.pack()
-        self.boton_añadir.pack()
-        self.boton_entregar.pack()
-        self.boton_gestionar_empleados.pack()
-        self.boton_cerrar_seccion.pack()
+        self.boton_añadir.pack(pady=12, padx=30)
+        self.boton_entregar.pack(pady=12, padx=30)
+        self.boton_gestionar_empleados.pack(pady=12, padx=30)
+        self.boton_cerrar_seccion.pack(pady=12, padx=30)
 
 class Panel(tk.Frame):
     def __init__(self, parent):

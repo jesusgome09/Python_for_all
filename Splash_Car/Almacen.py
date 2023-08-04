@@ -1,11 +1,17 @@
-grado = 2
+import streamlit as st
 
-match grado:
-    case 1:
-        print("Hola")
-    case 2:
-        print("Melo")
+st.write("""
+# Mi pagina web
+Bienvenido a mi pagina web
+""")
 
-fonts = pyfliglet.FligletFont.getfonts()
-slecio0nar = ramdon.choises(fonts)
-acsii = pyfiglet.figlet_format(mensaje, font=slecio0nar)
+ped = st.radio("¿Que desea hacer?", ("Ingresar", "Registrar"))
+file = st.file_uploader("Subir archivo", type=["txt"])
+
+if file is not None:
+    st.write(file)
+    file.seek(0)
+    content = file.read()
+    st.write(content)
+
+#   streamlit run Splash_Car\Almacen.py

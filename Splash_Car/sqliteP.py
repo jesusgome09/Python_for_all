@@ -19,11 +19,14 @@ def agregar_usuario(
     rango,
 ):
     rango = 1
-    file_ = connect(ubicacion, "a", isolation_level=None)
+    file_ = connect(ubicacion, isolation_level=None)
     cursor = file_.cursor()
-    cursor.execute(
-        f"INSERT INTO usuarios(nombres, apellidos, correo, celular, username, identificacion, fecha_nacimiento, modo_lavado, rango) VALUES('{nombres}', '{apellidos}', '{correo}',{celular}, '{username}', {identificacion}, '{fecha_nacimiento}', '{modo_lavado}', {rango})"
-    )
+    try:
+        cursor.execute(
+            f"INSERT INTO usuarios(nombres, apellidos, correo, celular, username, identificacion, fecha_nacimiento, modo_lavado, rango) VALUES('{nombres}', '{apellidos}', '{correo}',{celular}, '{username}', {identificacion}, '{fecha_nacimiento}', '{modo_lavado}', {rango})"
+        )
+    except Error as e:
+        return e
     file_.close()
     return True
 
@@ -185,3 +188,4 @@ def agregar_columna_hora_entrada():
 
 
 #agregar_auto(12346578912345,'pedro lopez','Honda',12000,'30/07/2023','01:06',2,1068823310)
+agregar_usuario("juan david", "lopez", "juandsemse@gmail.com",3131351351,"juandavid",1068814578,"30/07/2003","Manual",1)

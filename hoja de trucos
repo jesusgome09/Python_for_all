@@ -1,0 +1,8 @@
+import pyfiglet
+import random
+
+mensaje = "SPLASH CAR"
+fonts = pyfiglet.FigletFont.getFonts()
+seleccionar_font = random.choice(fonts)
+ascii_art = pyfiglet.figlet_format(mensaje, font=seleccionar_font)
+print(ascii_art)
