@@ -19,7 +19,7 @@ class Window(tk.Tk):
         self.title("Car Wash")
         self.resizable(False, False)
 
-        self.inicio = PanelAdmin(self)
+        self.inicio = Panel(self)
         self.inicio.pack(fill="both", expand=True)
 
         self.how = How(self)
@@ -43,10 +43,13 @@ class Inicio(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.bind("<Visibility>", lambda event: (
-            self.entry_mi_id.delete(0, tk.END),
-            self.entry_mi_id.configure(placeholder_text="MI ID")
-        ))
+        self.bind(
+            "<Visibility>",
+            lambda event: (
+                self.entry_mi_id.delete(0, tk.END),
+                self.entry_mi_id.configure(placeholder_text="MI ID"),
+            ),
+        )
 
         # agrego items
 
@@ -122,10 +125,14 @@ class Inicio(tk.Frame):
                 parent = self.master
                 parent.rastreo.pack(expand=True, fill="both")
             else:
-                tk.messagebox.showerror(title="Error", message="No se a podido encontrar")
+                tk.messagebox.showerror(
+                    title="Error", message="No se a podido encontrar"
+                )
 
         else:
-            tk.messagebox.showwarning(title="OJO", message="Por favor rellena el campo MY ID")
+            tk.messagebox.showwarning(
+                title="OJO", message="Por favor rellena el campo MY ID"
+            )
 
     def iniciar_seccion(self):
         self.pack_forget()
@@ -136,7 +143,8 @@ class Inicio(tk.Frame):
         print("holaaaa")
         self.buscar()
 
-class Rastreo(tk.Frame):  # Todavia me falta mucho
+
+class Rastreo(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
@@ -177,10 +185,18 @@ class Rastreo(tk.Frame):  # Todavia me falta mucho
         # botones
 
         self.boton_llamar = ct.CTkButton(
-            self.frame3, text="Llamar", font=("Arial", 35), width=200, command=self.llamar
+            self.frame3,
+            text="Llamar",
+            font=("Arial", 35),
+            width=200,
+            command=self.llamar,
         )
         self.boton_retroceder = ct.CTkButton(
-            self.frame3, text="Retroceder", font=("Arial", 35), width=200, command=self.retroseder
+            self.frame3,
+            text="Retroceder",
+            font=("Arial", 35),
+            width=200,
+            command=self.retroseder,
         )
 
         # empezamos a llamar a pack()
@@ -221,15 +237,17 @@ class Rastreo(tk.Frame):  # Todavia me falta mucho
             text=f"fecha y hora de entrada: {datos[6]} {datos[7]}"
         )
         self.tiempo_restante = Logica.hora(datos[7], datos[8])
-        self.label_tiempo_restante.config(text=f"Tiempo restante: {self.tiempo_restante}")
+        self.label_tiempo_restante.config(
+            text=f"Tiempo restante: {self.tiempo_restante}"
+        )
 
     def llamar(self):
-        webbrowser.open('google.com')
+        webbrowser.open("google.com")
 
     def retroseder(self):
         self.pack_forget()
         parent = self.master
-        parent.inicio.pack(fill='both', expand=True)
+        parent.inicio.pack(fill="both", expand=True)
 
 
 class Login(tk.Frame):
@@ -256,7 +274,7 @@ class Login(tk.Frame):
         self.label_advertencia = tk.Label(
             self,
             text="Recuerda cerrar seccion al terminar\n"
-                 + "Mantengamos el entorno libre de hackers",
+            + "Mantengamos el entorno libre de hackers",
             font=("Comic Sans MS", 12, "italic"),
         )
         self.imagen = tk.PhotoImage(file=path + "advertencia.png")
@@ -284,13 +302,15 @@ class Login(tk.Frame):
             self.frame3,
             text="Retroseder",
             font=("Comic Sans MS", 30, "italic"),
-            width=200, command=self.regresar
+            width=200,
+            command=self.regresar,
         )
         self.boton_registrarse = ct.CTkButton(
             self.frame3,
             text="Registrarse",
             font=("Comic Sans MS", 30, "italic"),
-            width=200, command=self.registrarse
+            width=200,
+            command=self.registrarse,
         )
         self.boton_iniciar_seccion = ct.CTkButton(
             self.frame3,
@@ -324,7 +344,7 @@ class Login(tk.Frame):
         passw = self.entry_contrasena.get()
 
         if SqliteP.verificar_correo(user, passw) or SqliteP.verificar_username(
-                user, passw
+            user, passw
         ):
             if user == "jesuseliasgomezcogollo@gmail.com" or user == "jesusgome09":
                 self.pack_forget()
@@ -343,12 +363,12 @@ class Login(tk.Frame):
     def registrarse(self):
         self.pack_forget()
         parent = self.master
-        parent.reg.pack(fill='both', expand=True)
+        parent.reg.pack(fill="both", expand=True)
 
     def regresar(self):
         self.pack_forget()
         parent = self.master
-        parent.inicio.pack(fill='both', expand=True)
+        parent.inicio.pack(fill="both", expand=True)
 
 
 class How(tk.Frame):
@@ -383,16 +403,25 @@ class How(tk.Frame):
         # botones
 
         self.boton_llamar = ct.CTkButton(
-            self.frame2, text="Llamar", font=("Comic Sans MS", 35), width=200,
-            command=self.llamar
+            self.frame2,
+            text="Llamar",
+            font=("Comic Sans MS", 35),
+            width=200,
+            command=self.llamar,
         )
         self.boton_chatear = ct.CTkButton(
-            self.frame2, text="Chatear", font=("Comic Sans MS", 35), width=200,
-            command=self.chatear
+            self.frame2,
+            text="Chatear",
+            font=("Comic Sans MS", 35),
+            width=200,
+            command=self.chatear,
         )
         self.boton_retroceder = ct.CTkButton(
-            self.frame2, text="Retroceder", font=("Comic Sans MS", 35), width=200,
-            command=self.regresar
+            self.frame2,
+            text="Retroceder",
+            font=("Comic Sans MS", 35),
+            width=200,
+            command=self.regresar,
         )
 
         # llamamos elementos
@@ -409,7 +438,7 @@ class How(tk.Frame):
     def regresar(self):
         self.pack_forget()
         parent = self.master
-        parent.inicio.pack(fill='both', expand=True)
+        parent.inicio.pack(fill="both", expand=True)
 
     def llamar(self):
         webbrowser.open("google.com")
@@ -612,24 +641,27 @@ class Reg(tk.Frame):
         modo_lavado = self.var1.get()
         rango = 1
 
-        if (nombre,apellido,correo, username, fecha_nacimiento, modo_lavado)  != "":
+        if (nombre, apellido, correo, username, fecha_nacimiento, modo_lavado) != "":
             if (celular, identificacion) != "":
                 if SqliteP.agregar_usuario(
-                        nombre,
-                        apellido,
-                        correo,
-                        celular,
-                        username,
-                        identificacion,
-                        fecha_nacimiento,
-                        modo_lavado,
-                        rango,
+                    nombre,
+                    apellido,
+                    correo,
+                    celular,
+                    username,
+                    identificacion,
+                    fecha_nacimiento,
+                    modo_lavado,
+                    rango,
                 ):
-                    tk.messagebox.showinfo(title="Registrado", message="Usuario registrado con exito")
+                    tk.messagebox.showinfo(
+                        title="Registrado", message="Usuario registrado con exito"
+                    )
                     self.pack_forget()
                     parent = self.master
                     parent.login.pack(fill="both", expand=True)
-                elif SqliteP.agregar_usuario(
+                elif (
+                    SqliteP.agregar_usuario(
                         nombre,
                         apellido,
                         correo,
@@ -639,93 +671,186 @@ class Reg(tk.Frame):
                         fecha_nacimiento,
                         modo_lavado,
                         rango,
-                ) == "UNIQUE constraint failed: usuarios.username":
-                    tk.messagebox.showerror(title="Error", message="CC o nombre de usuario ya registrado")
+                    )
+                    == "UNIQUE constraint failed: usuarios.username"
+                ):
+                    tk.messagebox.showerror(
+                        title="Error", message="CC o nombre de usuario ya registrado"
+                    )
                 else:
-                    tk.messagebox.showerror(title="Error", message="No se pudo registrar, a ocurrido un error")
+                    tk.messagebox.showerror(
+                        title="Error",
+                        message="No se pudo registrar, a ocurrido un error",
+                    )
             else:
-                tk.messagebox.showwarning(title="Error", message="Por favor rellena todos los campos")
+                tk.messagebox.showwarning(
+                    title="Error", message="Por favor rellena todos los campos"
+                )
         else:
-            tk.messagebox.showwarning(title="Error", message="Por favor rellena todos los campos")
+            tk.messagebox.showwarning(
+                title="Error", message="Por favor rellena todos los campos"
+            )
 
 
-class PanelAdmin(tk.Frame):
+class PanelAdmin(tk.Frame):  # Todavia me falta mucho
     def __init__(self, parent):
         super().__init__(parent)
 
-
-        #frames
+        # frames
         self.frame1 = tk.Frame(self)
         self.frame2 = tk.Frame(self)
         self.frame3 = tk.Frame(self.frame1)
         self.frame4 = tk.Frame(self.frame1)
         self.frame5 = tk.Frame(self.frame2, width=200, height=100)
-        self.frame6 = tk.Frame(self.frame2)
+        self.frame6 = tk.Frame(self)
 
-        self.label_titulo = tk.Label(self.frame1, text="Enfoque general del dia",
-        font=("Comic Sans MS", 30, "italic")
+        self.label_titulo = tk.Label(
+            self.frame1,
+            text="Enfoque general del dia",
+            font=("Comic Sans MS", 30, "italic"),
         )
-        self.label_autos_en_cola = tk.Label(self.frame3, text="Autos en cola: ", font=("Comic Sans MS", 18, "italic"))
-        self.label_autos_listos = tk.Label(self.frame3, text="Autos Listos: ", font=("Comic Sans MS", 18, "italic"))
-        self.label_ingreso_diario = tk.Label(self.frame4, text="Ingreso diario: ", font=("Comic Sans MS", 18, "italic"))
-        self.label_autos_lavados = tk.Label(self.frame4, text="Autos lavados: ", font=("Comic Sans MS", 18, "italic"))
-        self.label_usuario = tk.Label(self.frame6, text="jesusgome09", font=("Comic Sans MS", 18, "italic"))
+        self.label_autos_en_cola = tk.Label(
+            self.frame3, text="Autos en cola: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_autos_listos = tk.Label(
+            self.frame3, text="Autos Listos: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_ingreso_diario = tk.Label(
+            self.frame4, text="Ingreso diario: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_autos_lavados = tk.Label(
+            self.frame4, text="Autos lavados: ", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_usuario = tk.Label(
+            self.frame6, text="jesusgome09", font=("Comic Sans MS", 18, "italic")
+        )
         self.icono_usuario = tk.PhotoImage(file=(path + "user-icon.png"))
         self.icono_usuario = self.icono_usuario.subsample(7, 7)
         self.label_icono_usuario = tk.Label(self.frame6, image=self.icono_usuario)
 
-        self.grafico_estadistico = 'pronto'
+        self.grafico_estadistico = "pronto"
 
-        self.boton_añadir = ct.CTkButton(self.frame2, text='Añadir', font=("Comic Sans MS", 32, "italic"), width=300, height=45)
-        self.boton_entregar = ct.CTkButton(self.frame2, text='Entregar', font=("Comic Sans MS", 32, "italic"), width=300, height=45)
-        self.boton_gestionar_empleados = ct.CTkButton(self.frame2, text='Gestionar empleados', font=("Comic Sans MS", 30, "italic"), width=300, height=45)
-        self.boton_cerrar_seccion = ct.CTkButton(self.frame2, text='Cerrar seccion', font=("Comic Sans MS", 32, "italic"), width=300, height=45)
+        self.boton_añadir = ct.CTkButton(
+            self.frame2,
+            text="Añadir",
+            font=("Comic Sans MS", 32, "italic"),
+            width=300,
+            height=50,
+        )
+        self.boton_entregar = ct.CTkButton(
+            self.frame2,
+            text="Entregar",
+            font=("Comic Sans MS", 32, "italic"),
+            width=300,
+            height=50,
+        )
+        self.boton_gestionar_empleados = ct.CTkButton(
+            self.frame2,
+            text="Gestionar empleados",
+            font=("Comic Sans MS", 30, "italic"),
+            width=300,
+            height=50,
+        )
+        self.boton_cerrar_seccion = ct.CTkButton(
+            self.frame2,
+            text="Cerrar seccion",
+            font=("Comic Sans MS", 32, "italic"),
+            width=300,
+            height=50,
+        )
 
-        self.label_titulo.pack(pady=30, padx=20)
-        self.frame6.pack(ipadx=0, ipady=0, padx=0, pady=0)
-        self.frame1.pack(side='left', fill='y', padx=20)
-        self.frame2.pack(side='right', ipadx=20)
+        self.label_titulo.pack(padx=20)
+        self.frame6.pack(anchor="ne", pady=0, ipady=0)
+        self.frame1.pack(side="left", fill="y", padx=20)
+        self.frame2.pack(side="right", ipadx=20)
         self.frame3.pack()
         self.frame4.pack()
         self.frame5.pack()
 
-        self.label_autos_en_cola.pack(side='left', padx=20, pady=10)
-        self.label_autos_listos.pack(side='right', padx=20, pady=10)
-        self.label_ingreso_diario.pack(side='left', padx=20, pady=10)
-        self.label_autos_lavados.pack(side='right', padx=20, pady=10)
-        self.label_icono_usuario.pack(side='right')
-        self.label_usuario.pack(side='right')
-        #self.grafico_estadistico.pack()
+        self.label_autos_en_cola.pack(side="left", padx=20, pady=10)
+        self.label_autos_listos.pack(side="right", padx=20, pady=10)
+        self.label_ingreso_diario.pack(side="left", padx=20, pady=10)
+        self.label_autos_lavados.pack(side="right", padx=20, pady=10)
+        self.label_icono_usuario.pack(side="right", pady=0)
+        self.label_usuario.pack(side="right", pady=0)
+        # self.grafico_estadistico.pack()
         self.boton_añadir.pack(pady=12, padx=30)
         self.boton_entregar.pack(pady=12, padx=30)
         self.boton_gestionar_empleados.pack(pady=12, padx=30)
         self.boton_cerrar_seccion.pack(pady=12, padx=30)
 
-class Panel(tk.Frame):
+
+class Panel(tk.Frame): # Todavia me falta mucho
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.label_titulo = tk.Label(self, text="Panel", font=("Comic Sans MS",35,"italic"))
-        self.label_autos_en_cola = tk.Label(self, text="Autos en cola:")
-        self.label_autos_listos = tk.Label(self, text="Autos listos:")
-        self.label_ganancia_diaria = tk.Label(self, text="Ganancia Diaria:")
-        self.Label_usuario = tk.Label(self, text="Usuario")
-        self.Label_icono_usuario = tk.Label(self, text="Usuario")
-        self.Label_frase_del_dia = tk.Label(self, text="frase del dia:")
-        #self.frase_del_dia
-        #self.grafico_analisis
-        self.boton_cerrar_seccion = ct.CTkButton(self, text="Cerrar Seccion")
+        # frames
+        self.frame1 = tk.Frame(self)
+        self.frame2 = tk.Frame(self)
+        self.frame3 = tk.Frame(self.frame1)
+        self.frame4 = tk.Frame(self.frame1)
+        self.frame5 = tk.Frame(self, width=200, height=50)
+
+        self.label_titulo = tk.Label(
+            self.frame1, text="Enfoque del dia", font=("Comic Sans MS", 30, "italic")
+        )
+        self.label_autos_en_cola = tk.Label(
+            self.frame3, text="Autos en cola:", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_autos_listos = tk.Label(
+            self.frame3, text="Autos listos:", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_ganancia_diaria = tk.Label(
+            self.frame4, text="Ganancia Diaria:", font=("Comic Sans MS", 18, "italic")
+        )
+        self.label_autos_lavados = tk.Label(
+            self.frame4, text="Autos Lavados:", font=("Comic Sans MS", 18, "italic")
+        )
+        self.Label_usuario = tk.Label(
+            self.frame5, text="Usuario", font=("Comic Sans MS", 18, "italic")
+        )
+        self.image = tk.PhotoImage(file=(path + "user-icon.png"))
+        self.image = self.image.subsample(8, 8)
+        self.Label_icono_usuario = tk.Label(self.frame5, image=self.image)
+        # self.grafico_estadistico = tk.Label(self, text="Grafico estadistico", font=("Comic Sans MS", 18, "italic"))
+        self.boton_cerrar_seccion = ct.CTkButton(
+            self.frame2,
+            text="Cerrar Seccion",
+            font=("Comic Sans MS", 26, "italic"),
+            width=300,
+            height=50,
+        )
+
+        # llamar widgets
+        self.label_titulo.pack(pady=20)
+        self.frame1.pack(side="left", fill="y", padx=20)
+        self.frame5.pack(anchor="ne", pady=0, ipady=0)
+        self.frame2.pack(side="right", ipadx=20, anchor="se", pady=30)
+        self.frame3.pack()
+        self.frame4.pack()
+
+        self.label_autos_en_cola.pack(side="left", padx=20, pady=10)
+        self.label_autos_listos.pack(side="right", padx=20, pady=10)
+        self.label_ganancia_diaria.pack(side="left", padx=20, pady=10)
+        self.label_autos_lavados.pack(side="right", padx=20, pady=10)
+        self.Label_usuario.pack(side="left")
+        self.Label_icono_usuario.pack(side="right")
+
+        self.boton_cerrar_seccion.pack(anchor='s', pady=20, padx=30)
 
 
-class Añadir(tk.Frame):
+class Añadir(tk.Frame): # Todavia me falta mucho
     def __init__(self, parent):
         super().__init__(parent)
 
 
-class Entregar(tk.Frame):
+class Entregar(tk.Frame): # Todavia me falta mucho
     def __init__(self, parent):
         super().__init__(parent)
 
+class Emples(tk.Frame): # Todavia me falta mucho
+    def __init__(self, parent):
+        super().__init__(parent)
 
 def run():
     window = Window()
