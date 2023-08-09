@@ -1,0 +1,21 @@
+tu_proyecto/
+|-- static/
+|   |-- css/
+|   |   |-- styles.css
+|   |
+|   |-- js/
+|   |   |-- main.js
+|   |
+|   |-- images/
+|       |-- logo.png
+|
+|-- templates/
+|   |-- index.html
+|
+|-- routes/
+|   |-- __init__.py
+|   |-- api.py
+|
+|-- app.py (o main.py)
+|
+|-- README.md
