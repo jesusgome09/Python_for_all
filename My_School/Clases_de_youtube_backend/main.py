@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from routers import products
 from routers import users
 from fastapi.staticfiles import StaticFiles
+from routers import jwt_auth_users
 
 #uvicorn main:app --reload
 
@@ -11,6 +12,7 @@ app = FastAPI()
 # Routers
 app.include_router(products.router)
 app.include_router(users.router)
+app.include_router(jwt_auth_users.router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 

@@ -19,7 +19,7 @@ class Window(tk.Tk):
         self.title("Car Wash")
         self.resizable(False, False)
 
-        self.inicio = Panel(self)
+        self.inicio = Inicio(self)
         self.inicio.pack(fill="both", expand=True)
 
         self.how = How(self)
@@ -44,7 +44,7 @@ class Inicio(tk.Frame):
         super().__init__(parent)
 
         self.bind(
-            "<Visibility>",
+            "<Visibility>", 
             lambda event: (
                 self.entry_mi_id.delete(0, tk.END),
                 self.entry_mi_id.configure(placeholder_text="MI ID"),
