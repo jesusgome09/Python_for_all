@@ -1,0 +1,8 @@
+.caja{
+    background-color: aqua;
+    padding: 10%;
+    margin: 5px;
+    border:10px, groove, red;
+    font-family: "Comic Sans MS", "cursive";
+    font-size: large;
+}

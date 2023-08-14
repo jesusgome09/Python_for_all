@@ -188,4 +188,4 @@ def agregar_columna_hora_entrada():
 
 
 #agregar_auto(12346578912345,'pedro lopez','Honda',12000,'30/07/2023','01:06',2,1068823310)
-agregar_usuario("juan david", "lopez", "juandsemse@gmail.com",3131351351,"juandavid",1068814578,"30/07/2003","Manual",1)
+#agregar_usuario("juan david", "lopez", "juandsemse@gmail.com",3131351351,"juandavid",1068814578,"30/07/2003","Manual",1)

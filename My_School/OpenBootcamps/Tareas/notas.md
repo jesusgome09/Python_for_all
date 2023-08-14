@@ -37,3 +37,7 @@ python3 manage.py createsuperuser
 
 ## nose pero para algo sirve
 python3 manage.py makemigrations
+
+## para correr
+
+python3 manage.py runserver
